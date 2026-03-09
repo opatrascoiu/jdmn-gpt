@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_47261C7F-61B2-4354-869A-E79651F7967B" id="_93897066-3FBB-42FD-B818-E09DF6390D38" name="DMN_F355B707-A0A0-402C-A39C-792F112F2FBB" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0">
+  <itemDefinition id="_6E8C551F-F055-42C8-AFFA-ECD0CD8556F7" name="Person" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+    <itemComponent id="_85D1E677-F4C7-4475-940B-E5927AD15806" name="fullName" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_0178052E-AF76-45FF-B138-EFB0F5470448" name="income" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_1F41A30B-80C3-4529-B4A1-5ECEB47197CB" name="age" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20240513/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <decision name="Mortgage Calculator" id="_4B8F8C0A-E0AD-4B0E-8DB7-F14E1F383CC3">
+    <variable name="Mortgage Calculator" id="_ACBD6DEA-BB04-4EF2-ACF5-72CBC84EF144" typeRef="boolean" />
+    <informationRequirement id="_0D7F74C1-55F0-4108-B2ED-3094357B0C25">
+      <requiredInput href="#_B1C0E01E-374C-458E-A97D-B59C6CE84349" />
+    </informationRequirement>
+    <decisionTable id="_DD1B3929-691B-4184-BFA5-348476ED9D77" typeRef="boolean" hitPolicy="UNIQUE" label="Mortgage Calculator">
+      <input id="_97AECAD3-801A-4841-BA9B-8EBDA80EBB67">
+        <inputExpression id="_BB71C13E-D641-4EF7-80DC-654B37D6CD20" typeRef="number">
+          <text>Person.income</text>
+        </inputExpression>
+      </input>
+      <input id="_0B13099A-7DF9-4849-9857-E7D19523CA4B">
+        <inputExpression id="_E3DF1ADF-A5EF-4F4A-85AA-A6870069A58E" typeRef="number">
+          <text>Person.age</text>
+        </inputExpression>
+      </input>
+      <output id="_8585CE33-E469-45AC-AE6E-EA5FD2B49B34" />
+      <annotation name="Annotations" />
+      <rule id="_C93ACC2A-241D-4378-B9C4-49983BBEA38D">
+        <inputEntry id="_1716A103-EBD9-4A2A-938C-DEF64345C9FC">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="_69B870D6-15AB-4361-8027-7ED5B3466E1F">
+          <text>&lt; 18</text>
+        </inputEntry>
+        <outputEntry id="_E6592C5E-9BB9-4EB3-8463-C7814A2E7258">
+          <text>false</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>Person.fullName + "is too young"</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_65A83946-6149-436B-8CA4-07299ABDBC8B">
+        <inputEntry id="_7CFEC028-8E69-4E9C-91A6-1C80379A6235">
+          <text>&lt;100000</text>
+        </inputEntry>
+        <inputEntry id="_5016C3C7-537A-4D30-B17F-29C04C64B433">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="_EC01266F-AFEA-475E-AD7B-5048B4486F57">
+          <text>false</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>Person.fullName + "'s income is too low"</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_97008319-5768-409A-9124-C436E5362C0B">
+        <inputEntry id="_44B8AE49-2D85-4B9C-BE96-24148F0DAB3A">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="_DB3A7BCC-4D24-4537-9483-66278440C79B">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="_6691D6F9-7931-4732-9ED4-041B1FC1A1AD">
+          <text>true</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>"mortgage is granted"</text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData name="Person" id="_B1C0E01E-374C-458E-A97D-B59C6CE84349">
+    <variable name="Person" id="_37DA6070-7051-4B64-87D4-F36C7B0455E3" typeRef="Person" />
+  </inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_55BB5D55-D6EF-4F17-81E7-1832DFFEC579" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_DD1B3929-691B-4184-BFA5-348476ED9D77">
+            <kie:width>60</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_950A5C31-E811-42EF-BFC6-91C921DB350A" dmnElementRef="_B1C0E01E-374C-458E-A97D-B59C6CE84349" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="280" y="300" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_516248BE-66FB-4E6B-AB8B-8406D9A22CA8" dmnElementRef="_4B8F8C0A-E0AD-4B0E-8DB7-F14E1F383CC3" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="280" y="100" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="_9BF4CB3A-DD25-4CDA-88D1-7ACDEC57EF07" dmnElementRef="_0D7F74C1-55F0-4108-B2ED-3094357B0C25" sourceElement="_950A5C31-E811-42EF-BFC6-91C921DB350A" targetElement="_516248BE-66FB-4E6B-AB8B-8406D9A22CA8">
+        <di:waypoint x="360" y="340" />
+        <di:waypoint x="360" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

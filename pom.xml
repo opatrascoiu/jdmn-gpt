@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.opatrascoiu</groupId>
+    <artifactId>jdmnGPT</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <langchain4j.version>0.23.0</langchain4j.version>
+        <dmn.version>1.5</dmn.version>
+        <jdmn.version>9.0.0</jdmn.version>
+        <platform.version>${jdmn.version}</platform.version>
+
+        <model.folder>${project.basedir}/src/main/resources/dmn</model.folder>
+        <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
+        <generated.root.package>org.jdmn.generated</generated.root.package>
+        <generated.test.code.folder>${project.build.directory}/generated-test-sources/tck</generated.test.code.folder>
+
+        <java.version>1.8</java.version>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-runtime</artifactId>
+            <version>${jdmn.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.goldmansachs.jdmn</groupId>
+                <artifactId>jdmn-maven-plugin</artifactId>
+                <version>${jdmn.version}</version>
+                <configuration>
+                    <dmnDialect>com.gs.dmn.dialect.JavaTimeDMNDialectDefinition</dmnDialect>
+                    <dmnTransformers>
+                        <dmnTransformer>com.gs.dmn.transformation.ToQuotedNameTransformer</dmnTransformer>
+                    </dmnTransformers>
+                    <inputParameters>
+                        <dmnVersion>${dmn.version}</dmnVersion>
+                        <modelVersion>${model.version}</modelVersion>
+                        <platformVersion>${platform.version}</platformVersion>
+                        <xsdValidation>true</xsdValidation>
+                        <caching>true</caching>
+                    </inputParameters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>cl2-0001-input-data-string</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${model.folder}</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.mortgage</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
